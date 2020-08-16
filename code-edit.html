@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CodeMirror: JavaScript mode</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+  <script src="codemirror/lib/codemirror.js"></script>
+  
+  <link rel="stylesheet" href="codemirror/addon/hint/show-hint.css">
+  <script src="codemirror/addon/hint/show-hint.js"></script>
+  <script src="codemirror/addon/hint/xml-hint.js"></script>
+  <script src="codemirror/addon/hint/html-hint.js"></script>
+  <script src="codemirror/addon/hint/javascript-hint.js"></script>
+  <script src="codemirror/addon/edit/matchbrackets.js"></script>
+  <script src="codemirror/addon/comment/continuecomment.js"></script>
+  <script src="codemirror/addon/comment/comment.js"></script>
+  
+  <script src="codemirror/mode/javascript/javascript.js"></script>
+  <script src="codemirror/mode/xml/xml.js"></script>
+  <script src="codemirror/mode/css/css.js"></script>
+  <script src="codemirror/mode/htmlmixed/htmlmixed.js"></script>
+  <style>.CodeMirror {border-top: 1px solid black; border-bottom: 1px solid black;}</style>
+  <style>details {
+    /* border: 1px solid rgba(0,0,0,0.2); */
+    /* box-shadow: 0 1px 2px 0 rgba(60,64,67,.30), 0 2px 6px 2px rgba(60,64,67,.15); */
+    /* border-radius: 8px; */
+    /* font-size: 15px; */
+    /* margin-bottom: 1px; */
+    /* overflow: auto; */
+    }
+  details > summary {
+    /* transition: color 0.5s; */
+    outline-style: unset;
+    /* color: black; */
+    cursor: pointer;
+    padding: 2px;
+    }</style>
+</head>
+<body>
+  <div>
+    <details open>
+      <summary>htmlcode</summary>
+      <div id="htmlcode"></div>
+    </details>   
+    <button onclick="CodeMirror.showHint(htmlcode)">showHint</button>
+   
+    <details open>
+      <summary>jscode</summary>
+       <div id="jscode"></div>
+    </details> 
+  </div>
+
+  <script>
+  window.onload = function() {
+    window._confs=[];
+    window._opts={
+      CMKeys: {
+        "Ctrl-Q": "toggleComment",
+        "Ctrl-Space": "autocomplete"
+      },
+      get(mode,value=""){
+        return {
+          lineNumbers:true,
+          matchBrackets:true,
+          continueComments:"Enter",
+          extraKeys:this.CMKeys,
+          mode:mode,value:value
+          }
+      }
+    };
+    _confs["html"]=_opts.get("text/html",document.documentElement.innerHTML)
+    _confs["jscode"]=_opts.get("javascript",document.body.querySelector('script').innerText)
+
+    window.htmlcode=CodeMirror(document.getElementById("htmlcode"),_confs.html);
+    window.jscode=CodeMirror(document.getElementById("jscode"),_confs.jscode);
+    
+   
+  
+  }
+  </script></body>
+</html>

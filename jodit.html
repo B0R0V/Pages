@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="application-name" content="app0">
+    <link rel="manifest" href="app0.webmanifest">
+    <link rel="stylesheet" href="vendor/jodit.min.css">
+    <script src="vendor/jodit.min.js"></script>
+  </head>
+  <body>
+    <div class="content">
+      <textarea id="editor" name="editor"></textarea>
+    </div>
+    <script>
+      var editor = new Jodit('#editor');
+      editor.options.height=innerHeight
+      editor.value = '<p>start</p>';
+    </script>
+  </body>
+</html>
