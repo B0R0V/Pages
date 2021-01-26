@@ -39,7 +39,10 @@
     }
     function listenCall (method, callback, targobj) {
         if (typeof method !== "string" || typeof callback !== "function") return;targobj = targobj || window; (function(objMethod) {
-            targobj[method] = function() {   try { callback.apply(targobj, arguments);   } catch (e) {console.log(e)} return objMethod.apply(targobj, arguments);  };  })(targobj[method]);
+            targobj[method] = function() {
+                try { callback.apply(targobj, arguments);   } catch (e) {console.log(e)} 
+                return objMethod.apply(targobj, arguments);
+            };  })(targobj[method]);
     }
     
     w._expl?true:w._expl={Obj,Func,listenCall};
