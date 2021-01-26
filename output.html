@@ -29,13 +29,19 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/obj-obsrv.js"></script>
     <script src="output.js"></script>
-    <style> .list-group-item {padding: 1.1px 5px;font-size: 13.8px;color: #19061d;}</style>
+    <style> body, body * {
+    outline: inset #06369e85 1px;
+    background-color: #5f94dc1a;
+    background-clip: border-box;
+    background-blend-mode: overlay;
+    }</style>
   </head>
   <body>
     <div class="container">
       <h4>Properties explore</h4>
-      <input id="inp" autofocus="" type="list" name="q" placeholder="..." style="width:100%;max-width:600px;outline:0;" autocomplete="off">
-      <div class ="list-group"></div>
+      <div class="container">
+        <input id="inp" autofocus="" type="list" name="q" placeholder="..." style="width:100%;max-width:600px;border-width: 1px;" autocomplete="off">
+      </div>
     </div>
   </body>
 </html>
