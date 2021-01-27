@@ -31,7 +31,7 @@ window.addEventListener('load', function() {
     }
   })();
   _CMcode = CodeMirror.fromTextArea(document.getElementById("CMInput"), {
-  lineNumbers: true,
+  lineNumbers: false,
   extraKeys: {"Ctrl-Space": "autocomplete"},
   mode: {name: "javascript", globalVars: true}
 });
