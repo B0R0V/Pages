@@ -1,4 +1,5 @@
 window.addEventListener('load', function() {
+  _log=console.log;
   _objectView = {
     GetChainProto: function(arg) {
       return s.call(arg);function s(e) {
@@ -17,9 +18,9 @@ window.addEventListener('load', function() {
     return {
       outpEL,
       ToggleShow: function(boolflag) {
-        this.outpEL.style.display = (typeof boolflag === "undefined") ? ({
-          'block': 'none','none': 'block'})[this.outpEL.style.display] : ({
-            false: 'none',true: 'block'})[!!boolflag];
+        this.outpEL.style.display = (typeof boolflag === "undefined") ? 
+          ({'block': 'none','none': 'block'})[this.outpEL.style.display] : ({
+            false: 'none',true: 'block'})[boolflag];
       },
       table: {
         el: outpEL.children[0].tBodies[0],
@@ -28,13 +29,24 @@ window.addEventListener('load', function() {
         },
         ClearRows: function() {this.el.innerHTML=''}
       }
-    }
-  })();
+  }})();
   _CMcode = CodeMirror.fromTextArea(document.getElementById("CMInput"), {
-  lineNumbers: false,
-  extraKeys: {"Ctrl-Space": "autocomplete"},
-  mode: {name: "javascript", globalVars: true}
-});
+    lineNumbers: false,dragDrop: false,smartIndent: true,
+    theme:'text-monospace text-dark',
+    extraKeys: {"Ctrl-Space": "autocomplete"},
+    mode: {name: "javascript", globalVars: true}
+  });
+  _CMcode.on("change", function (cm, event) { _log(Object.assign({},[event,cm]));_log(event.origin)
+    //if (!cm.state.completionActive && event.keyCode != 13) {
+      if (!cm.state.completionActive) {
+        _CMcode.showHint({completeSingle: false})
+        _list=cm.state.completionActive?cm.state.completionActive.data.list:_list;
+        
+        
+     }if (event.origin==="complete") {
+          _output.ToggleShow(true);_log(_CMcode.getValue())
+        } else {_output.ToggleShow(false)}
+    });
 // function DataList(opts){
 //     let listEl=document.querySelector('#inpList');
 //     listEl.innerHTML='';opts.forEach((v)=>{listEl.insertAdjacentHTML('afterBegin', v)});
