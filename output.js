@@ -13,7 +13,7 @@ window.addEventListener('load', function() {
       keys
     }
   };
-  _output = (function() {
+  _output = (function() { //https://bootstrap-4.ru/docs/4.5/components/collapse/
     let outpEL = document.querySelector('#output');
     return {
       outpEL,
@@ -22,12 +22,20 @@ window.addEventListener('load', function() {
           ({'block': 'none','none': 'block'})[this.outpEL.style.display] : ({
             false: 'none',true: 'block'})[boolflag];
       },
+      Clear:function(){this.outpEL.innerHTML=''},
       table: {
-        el: outpEL.children[0].tBodies[0],
+        el: outpEL.getElementsByTagName('table')[0],ClearRows: function() {this.el.innerHTML=''},
         DrawRow: function(key, value) {
           this.el.insertRow().innerHTML = `<th scope="row">${key}</th><td>${value}</td>`
-        },
-        ClearRows: function() {this.el.innerHTML=''}
+        }
+      },
+      ChainProto:function(chainarr){
+        for (let ChainEl in chainarr){this.outpEL.insertAdjacentHTML('beforeEnd',`
+        <div class="accordion" id="ChainEl${ChainEl}"><div class="card"><div class="card-header bg-dark text-info" id="headingOne"><h5 class="mb-0">
+        <button class="btn collapsed bg-dark text-info" type="button" data-toggle="collapse" data-target="#collapse${ChainEl}" aria-expanded="false" aria-controls="collapseOne">items: ${chainarr[ChainEl].items.length}, title: ${chainarr[ChainEl].title||''}</button></h5>    </div>
+        <div id="collapse${ChainEl}" class="collapse bg-secondary text-light" aria-labelledby="headingOne" data-parent="#ChainEl${ChainEl}" style="">   <div class="card-body">
+        <table class="table table-sm table-bordered table-hover table-dark "><thead><tr><th scope="col">key</th><th scope="col">value</th></tr></thead><tbody></tbody></table>
+        </div></div></div></div>`)}
       }
   }})();
   _CMcode = CodeMirror.fromTextArea(document.getElementById("CMInput"), {
@@ -37,15 +45,15 @@ window.addEventListener('load', function() {
     mode: {name: "javascript", globalVars: true}
   });
   _CMcode.on("change", function (cm, event) { _log(Object.assign({},[event,cm]));_log(event.origin)
-    //if (!cm.state.completionActive && event.keyCode != 13) {
-      if (!cm.state.completionActive) {
-        _CMcode.showHint({completeSingle: false})
-        _list=cm.state.completionActive?cm.state.completionActive.data.list:_list;
-        
-        
-     }if (event.origin==="complete") {
-          _output.ToggleShow(true);_log(_CMcode.getValue())
-        } else {_output.ToggleShow(false)}
+    if (!cm.state.completionActive) {
+      _CMcode.showHint({completeSingle: false})
+      _list=cm.state.completionActive?(cm.state.completionActive.data)?
+        cm.state.completionActive.data.list:null:_list;
+     }
+    if (event.origin==="complete") {
+          _output.ToggleShow(true);
+          _output.ChainProto(_objectView.GetChainProto(window[_CMcode.getValue()]))
+        } else {_output.ToggleShow(false);_output.Clear()}
     });
 // function DataList(opts){
 //     let listEl=document.querySelector('#inpList');

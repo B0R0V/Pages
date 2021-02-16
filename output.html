@@ -33,17 +33,24 @@
     <script src="codemirror/mode/javascript/javascript.js"></script>
     <script src="output.js"></script>
     <style>
+      body {
+        background-color: rgb(41 48 56 / 73%);
+      }
       body, body div * {
         /* outline: inset #0b389838 0.5px; */
         box-shadow: inset -0.1px -0.1px 0px 0.1px #081896b0, inset 0.1px 0.1px 0.1px 0.1px #250898b0;
       }
+      .card-header {padding: 0.35rem 0.35rem;}
+      .card-body {padding: 0.45rem;}
       .CodeMirror.cm-s-text-monospace.cm-s-text-dark {
         height: min-content;
       }
-      ul.CodeMirror-hints::-webkit-scrollbar{
+
+      ul.CodeMirror-hints::-webkit-scrollbar {
         width: 9px;
         background-clip: border-box;
       }
+
       ul.CodeMirror-hints::-webkit-scrollbar-thumb {
         background: #cfd1d4;
         border: 0px;
@@ -51,7 +58,8 @@
         min-height: 30px;
         margin: 0px;
       }
-      .CodeMirror-hints{
+
+      .CodeMirror-hints {
         font-size: 85%;
         max-height: 24em;
       }
@@ -61,23 +69,36 @@
     <div class="container">
       <h5>Context explorer</h5>
       <div class="container">
-<!--         <input id="inp" autofocus="" list="inpList" type="list" name="q" placeholder="..." style="width:100%;max-width:600px;border-width: 1px;" autocomplete="off">
+        <!--         <input id="inp" autofocus="" list="inpList" type="list" name="q" placeholder="..." style="width:100%;max-width:600px;border-width: 1px;" autocomplete="off">
         <datalist id="inpList"></datalist> -->
         <form>
           <textarea id="CMInput" name="code" rows="1"></textarea>
         </form>
       </div>
     </div>
-    <div class="container" id="output" style="display: none;">
-        <table class="table table-sm table-bordered table-hover table-dark ">
-          <thead>
-            <tr>
-              <th scope="col">name</th>
-              <th scope="col">value</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+    <div class="container" id="output" style="display: block;">
+      <div class="accordion" id="ChainEl">
+        <div class="card">
+          <div class="card-header bg-dark text-info" id="headingOne">
+            <h5 class="mb-0">
+              <button class="btn collapsed bg-dark text-info" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">items: ${ChainEl.items.length}, title: ${ChainEl.title}</button>
+            </h5>
+          </div>
+          <div id="collapseOne" class="collapse bg-secondary text-light" aria-labelledby="headingOne" data-parent="#ChainEl" style="">
+            <div class="card-body">
+              <table class="table table-sm table-bordered table-hover table-dark ">
+                <thead>
+                  <tr>
+                    <th scope="col">key</th>
+                    <th scope="col">value</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
   </body>
 </html>
