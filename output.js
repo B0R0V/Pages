@@ -48,7 +48,7 @@ window.addEventListener('load', function() {
     extraKeys: {"Ctrl-Space": "autocomplete"},
     mode: {name: "javascript", globalVars: true}
   });
-  _CMcode.on("change", function (cm, event) { _log(Object.assign({},[event,cm]));_log(event.origin)
+  _CMcode.on("keydown", function (cm, event) { _log(Object.assign({},[event,cm]));_log(event.origin)
     if (!cm.state.completionActive) {
       _CMcode.showHint({completeSingle: false})
       _list=cm.state.completionActive?(cm.state.completionActive.data)?
