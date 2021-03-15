@@ -43,14 +43,14 @@ window.addEventListener('load', function() {
       }
   }})();
   _CMcode = CodeMirror.fromTextArea(document.getElementById("CMInput"), {
-    lineNumbers: false,dragDrop: false,smartIndent: true,
+    lineNumbers: false,dragDrop: false,smartIndent: false,
     theme:'text-monospace text-dark',
     extraKeys: {"Ctrl-Space": "autocomplete"},
     mode: {name: "javascript", globalVars: true}
   });
-  _CMcode.on("keydown", function (cm, event) { _log(Object.assign({},[event,cm]));_log(event.origin)
+  _CMcode.on("keyup", function (cm, event) { _log(Object.assign({},[event,cm]));_log(event.origin)
     if (!cm.state.completionActive) {
-      _CMcode.showHint({completeSingle: false})
+      _CMcode.showHint({completeSingle: false});
       _list=cm.state.completionActive?(cm.state.completionActive.data)?
         cm.state.completionActive.data.list:null:_list;
      }
@@ -59,6 +59,7 @@ window.addEventListener('load', function() {
           _output.ChainProto(_objectView.GetChainProto(window[_CMcode.getValue()]))
         } else {_output.ToggleShow(false);_output.Clear()}
     });
+    
 // function DataList(opts){
 //     let listEl=document.querySelector('#inpList');
 //     listEl.innerHTML='';opts.forEach((v)=>{listEl.insertAdjacentHTML('afterBegin', v)});
