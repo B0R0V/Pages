@@ -50,17 +50,25 @@ window.addEventListener('load', function() {
   });
   _CMcode.on("keyup", function (cm, event) {_log(cm.getCursor().ch); _log(Object.assign({},[event,cm]));
     event.preventDefault();
+    _output.Clear();
     if (!cm.state.completionActive && cm.getCursor().ch>=2) {
       _CMcode.showHint({completeSingle: false});
       _list=cm.state.completionActive?(cm.state.completionActive.data)?
         cm.state.completionActive.data.list:null:_list;
      }
-    if (event.origin==="complete") {
-          _output.ToggleShow(true);
+     if (event.key==="Enter") {
+       cm.state.keyMaps[0][event.key]()
+     };
+     
+    if (event.origin==="complete") { _output.ToggleShow(true);
           _output.ChainProto(_objectView.GetChainProto(window[_CMcode.getValue()]))
         } else {_output.ToggleShow(false);_output.Clear()}
     });
-
+_CMcode.on('change',function(cm){
+  _output.ToggleShow(true);
+  
+  //_output.ChainProto(_objectView.GetChainProto(window[_CMcode.getValue()]))
+  })
 // function DataList(opts){
 //     let listEl=document.querySelector('#inpList');
 //     listEl.innerHTML='';opts.forEach((v)=>{listEl.insertAdjacentHTML('afterBegin', v)});
