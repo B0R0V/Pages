@@ -4,18 +4,22 @@
 	"display": "standalone",
 	"icons": [
 		{
-			"src": "128.png",
+			"src": "/Pages/128.png",
 			"sizes": "128x128",
 			"type": "image/png"
 		},
 		{
-			"src": "144.png",
+			"src": "/Pages/144.png",
 			"sizes": "144x144",
+			"type": "image/png"
+		},
+		{
+			"src": "/Pages/64.png",
+			"sizes": "64x64",
 			"type": "image/png"
 		}
 	],
-	"start_url": ".",
+	"start_url": "/Pages/",
 	"theme_color": "#5ac1f2",
 	"background_color": "#383838"
 }
-
